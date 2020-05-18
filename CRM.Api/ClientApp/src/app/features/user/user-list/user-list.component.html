@@ -1,0 +1,45 @@
+<div class="row my-1">
+  <div class="col-sm-12 text-right">
+    <button
+      class="btn btn-light m-0"
+      title="Add User"
+      (click)="toggleModal(true)"
+    >
+      <i class="fa fa-plus text-success"></i>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div
+      class="crm-grid-container"
+      *ngIf="users$ | async as users; else loading"
+    >
+      <app-user-card
+        *ngFor="let user of users"
+        [user]="user"
+        (addressSelected)="addressSelectedEvt($event)"
+        (closeCard)="deleteUser($event)"
+      >
+      </app-user-card>
+    </div>
+    <ng-template #loading>
+      <app-loading></app-loading>
+    </ng-template>
+  </div>
+</div>
+
+
+<app-modal
+  #userModal
+  id="userModal"
+  [closeModal]="toggleModal.bind(this, false)"
+  class="crm-hidden"
+>
+  <app-user-card
+    *ngIf="showUserModal"
+    (closeCard)="closeModal($event)"
+    [mode]="'add'"
+  ></app-user-card>
+</app-modal>

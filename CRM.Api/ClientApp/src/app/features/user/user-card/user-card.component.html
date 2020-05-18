@@ -1,0 +1,217 @@
+<div class="card" [ngClass]="{ hightlighted: anyAddressIsSelected }">
+  <div class="card-body">
+    <div class="text-right">
+      <a
+        class="btn btn-light"
+        style="font-size: 14px;"
+        [ngClass]="{ 'text-danger': isViewMode, 'text-secondary': !isViewMode }"
+        [title]="isViewMode ? 'Delete' : 'Close'"
+        (click)="closeAction(null)"
+      >
+        <i class="fa fa-times"></i>
+      </a>
+    </div>
+    <form
+      [formGroup]="userFormGroup"
+      (ngSubmit)="onSubmit(userFormGroup.value)"
+      validate
+      [ngClass]="{ 'card-view': isViewMode }"
+    >
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="name"
+          id="name"
+          [title]="user.name"
+          required
+          placeholder="Name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="company">Company</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="company"
+          [title]="user.company"
+          id="company"
+          required
+          placeholder="Company"
+        />
+      </div>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="title"
+          [title]="user.title"
+          id="title"
+          required
+          placeholder="Title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          [title]="user.contactInformation.email"
+          id="email"
+          required
+          placeholder="Email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="phoneNumber"
+          [title]="user.contactInformation.phoneNumber"
+          id="phoneNumber"
+          required
+          placeholder="Phone"
+        />
+      </div>
+      <div>
+        <label for="addresses" *ngIf="user.id">Addresses</label>
+        <div *ngFor="let address of user.addresses; let i = index">
+          <div class="form-group" *ngIf="address.mode !== 'add'">
+            <label for="address.fullAddress">Address #{{ i + 1 }}</label>
+            <div class="row">
+              <div class="col-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  [title]="address.fullAddress"
+                  [value]="address.fullAddress"
+                  disabled
+                  id="fullAddress"
+                  placeholder="Address"
+                />
+              </div>
+              <div class="col-2">
+                <input
+                  style="min-width: 15px;"
+                  type="checkbox"
+                  title="Show on Maps"
+                  class="form-control"
+                  (click)="showAddressChanged(address)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="showNewAddressForm || !isViewMode">
+          <div class="form-group address-group">
+            <div class="row">
+              <div class="col-md-8">
+                <label for="street">Street</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="street"
+                  id="addressStreet"
+                  required
+                  placeholder="Street"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="streetNumber">Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="streetNumber"
+                  id="addressStreetNumber"
+                  required
+                  placeholder="Number"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group address-group">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="city">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="city"
+                  id="addressCity"
+                  required
+                  placeholder="City"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="country">Country</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="country"
+                  id="addressCountry"
+                  required
+                  placeholder="Country"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="postalCode">Postal</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="postalCode"
+                  id="addressPostalCode"
+                  required
+                  placeholder="Postal Code"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="float-left">
+        <button
+          type="button"
+          class="btn btn-light ml-0"
+          *ngIf="showNewAddressForm && isViewMode"
+          (click)="hideAddressForm()"
+          style="font-size: 14px;"
+          title="Cancel"
+        >
+          <i class="fa fa-minus text-danger"></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light m-0"
+          *ngIf="showNewAddressForm && isViewMode"
+          (click)="addAddress()"
+          style="font-size: 14px;"
+          title="Add Address"
+        >
+          <i class="fa fa-check text-primary"></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light m-0"
+          *ngIf="!showNewAddressForm && isViewMode"
+          (click)="showAddressForm()"
+          style="font-size: 14px;"
+          title="Add Address"
+        >
+          <i class="fa fa-plus text-primary"></i>
+        </button>
+      </div>
+
+      <button
+        type="submit"
+        *ngIf="!isViewMode"
+        class="btn btn-primary float-right m-0"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

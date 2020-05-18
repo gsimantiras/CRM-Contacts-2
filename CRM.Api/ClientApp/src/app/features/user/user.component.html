@@ -1,0 +1,10 @@
+<div class="row crm-user-container">
+  <div class="col-md-6">
+    <app-user-list (addressSelected)="addressSelected($event)"> </app-user-list>
+  </div>
+  <div class="col-md-6 crm-maps" *ngIf="addresses.length > 0">
+    <div class="row my-1" style="height: 38px;"></div>
+    <app-map-location [addresses]="addresses"></app-map-location>
+  </div>
+</div>
+<app-scroll-top></app-scroll-top>

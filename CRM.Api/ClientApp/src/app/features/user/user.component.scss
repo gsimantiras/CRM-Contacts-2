@@ -1,0 +1,15 @@
+@import '../../../assets/styles/variables';
+
+.crm-user-container {
+  flex-direction: column-reverse;
+}
+
+@media screen and(min-width: $medium-size) {
+  .crm-user-container {
+    flex-direction: column;
+  }
+  .crm-maps {
+    position: fixed;
+    right: 0;
+  }
+}

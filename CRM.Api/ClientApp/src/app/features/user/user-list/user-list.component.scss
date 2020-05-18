@@ -1,0 +1,12 @@
+@import '../../../../assets/styles/variables';
+
+.crm-grid-container {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-gap: 2%;
+}
+@media screen and(min-width: $exta-large-size) {
+  .crm-grid-container {
+    grid-template-columns: 49% 49%;
+  }
+}

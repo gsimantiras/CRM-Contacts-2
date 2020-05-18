@@ -1,0 +1,10 @@
+$heighlightColor: rgb(253, 255, 124);
+
+.hightlighted {
+  box-shadow: 2px 2px 2px 0px $heighlightColor, -2px -2px 2px $heighlightColor,
+    2px -2px 2px $heighlightColor, -2px 2px 2px $heighlightColor;
+}
+
+.clickable {
+  cursor: pointer;
+}
